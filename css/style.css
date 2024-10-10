@@ -1,3 +1,11 @@
 .container {
   max-width: 960px;
 }
+/*Cambio de color si el campo es valido*/
+input.is-valid {
+  border-color: #28a745;
+}
+/*Cambio de color si el campo NO es valido */
+input.is-invalid {
+  border-color: #dc3545;
+}
