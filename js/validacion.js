@@ -39,11 +39,26 @@ function validarEmail() {
 }
 
     email.addEventListener('input', validarEmail);  
-});
+
 
 ////////////////////////////////////////////////////
 // Aca agregamos la validacion de contraseñas
 ////////////////////////////////////////////////////
+password1.addEventListener('input', function () {
+    checkPasswords();
+});
+
+password2.addEventListener('input', function () {
+    checkPasswords();
+});
+
+function checkPasswords() {
+    if (password1.value !== password2.value) {
+        password2.setCustomValidity('Las contraseñas no coinciden');
+    } else {
+        password2.setCustomValidity('');
+    }
+}
 
 ////////////////////////////////////////////////////
 // Aca agregar la validacion de checkbox de terminos y condiciones
@@ -57,4 +72,4 @@ function validarEmail() {
 // Aca agregar la verificacion de si todo esta valida
 ////////////////////////////////////////////////////
 
-)};
+});
