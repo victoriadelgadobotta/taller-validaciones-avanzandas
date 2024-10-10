@@ -7,7 +7,7 @@ document.addEventListener ('DOMContentLoaded', function() {
     const password2 = document.getElementById ('password2'); 
     const terminos = document.getElementById ('terminos');
     const modalButton = document.querySelector ('button[data-bs-target="#modalTerminos""]');   
-}
+    const emailRegex =  /^\w+([.-_+]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/; //Expresion regular para validar el email
 
 ////////////////////////////////////////////////////
 // Acá está la funcion de agregar el feedback visual
@@ -15,7 +15,7 @@ document.addEventListener ('DOMContentLoaded', function() {
 
 function mostrarValidacion (input, mensaje = "") {
     if (input.checkValidity()) {
-        input.classList.remove ('is-valid');
+        input.classList.remove ('is-invalid');
         input.classList.add ('is-valid');
         input.setCustomValidity (""); 
     } else {
@@ -28,6 +28,18 @@ function mostrarValidacion (input, mensaje = "") {
 ////////////////////////////////////////////////////
 // Aca agregar lavalidación del email porfis
 ////////////////////////////////////////////////////
+function validarEmail() {
+    let emailValido = emailRegex.test(email.value);
+    if (!emailValido) {
+        mostrarValidacion(email, "Debe ingresar un email valido ejemplo: nombre@dominio.com");
+    } else {
+        mostrarValidacion(email);
+    }
+    return emailValido;
+}
+
+    email.addEventListener('input', validarEmail);  
+});
 
 ////////////////////////////////////////////////////
 // Aca agregamos la validacion de contraseñas
@@ -42,9 +54,7 @@ function mostrarValidacion (input, mensaje = "") {
 ////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////
-// Aca agregar validacion de todos los campos
-////////////////////////////////////////////////////
-
-////////////////////////////////////////////////////
 // Aca agregar la verificacion de si todo esta valida
 ////////////////////////////////////////////////////
+
+)};
