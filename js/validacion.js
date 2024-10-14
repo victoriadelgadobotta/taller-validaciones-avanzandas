@@ -6,7 +6,7 @@ document.addEventListener ('DOMContentLoaded', function() {
     const password1 = document.getElementById ('password1'); 
     const password2 = document.getElementById ('password2'); 
     const terminos = document.getElementById ('terminos');
-    const modalButton = document.querySelector ('button[data-bs-target="#modalTerminos""]');   
+    const modalButton = document.querySelector('button[data-bs-target="#modalTerminos"]');  
     const emailRegex =  /^\w+([.-_+]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/; //Expresion regular para validar el email
 
 ////////////////////////////////////////////////////
@@ -63,13 +63,42 @@ function checkPasswords() {
 ////////////////////////////////////////////////////
 // Aca agregar la validacion de checkbox de terminos y condiciones
 ////////////////////////////////////////////////////
-
+function validarTerminos() {
+    if (!terminos.checked) {
+        mostrarValidacion(terminos, 'Debe aceptar los términos y condiciones.');
+        botonTerminos.style.color = 'red'; // Cambia el color del botón
+        mostarerrorterminos.innerHTML = `
+            <div class="invalid-feedback d-inline" id="errorterminos">Debes aceptar los términos y condiciones.</div>
+        `;
+    } else {
+        mostrarValidacion(terminos);
+        botonTerminos.style.color = ''; // Restablece el color si está marcado
+        mostarerrorterminos.innerHTML = "";
+    }
+}
 ////////////////////////////////////////////////////
 // Aca agregar la validacion de enviar el formulario
 ////////////////////////////////////////////////////
+form.addEventListener('submit', function (event) {
+    validarEmail();
+    checkPasswords();
+    validarTerminos();
+
+    let formularioValido = form.checkValidity();
+    if (!formularioValido) {
+        event.preventDefault(); // Impide el envío
+        event.stopPropagation(); // Detiene la propagación
+    }
+
+    form.classList.add('was-validated'); // Aplica estilos de validación de Bootstrap
+});
 
 ////////////////////////////////////////////////////
 // Aca agregar la verificacion de si todo esta valida
 ////////////////////////////////////////////////////
-
+form.querySelectorAll('input').forEach(input => {
+    input.addEventListener('input', () => {
+        mostrarValidacion(input);
+    });
+});
 });
